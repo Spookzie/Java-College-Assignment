@@ -3,11 +3,11 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question3();
+        Question6();
     }
 
 
-    // Program to demonstrate encapsulation in Java.   //
+    //  Program to demonstrate encapsulation in Java.   //
     private static void Question1()
     {   
         Person me = new Person("Vansh Bansal", 20);
@@ -23,7 +23,7 @@ public class App
     }
 
 
-    //  rogram showing the use of inheritance and polymorphism.    //
+    //  Program showing the use of inheritance and polymorphism.    //
     private static void Question2()
     {
         Person me = new Person("Vansh Bansal", 20);
@@ -39,11 +39,53 @@ public class App
     }
 
 
-    // Program implementing the concept of abstraction.
+    //  Program implementing the concept of abstraction. //
     private static void Question3()
     {
         Player hero = new Player();
         hero.Spawn();
         hero.Kill();
+    }
+
+    //  Program to demonstrate method overloading and method overriding.    //
+    //---------------------------------
+    private static void Question4()
+    {
+        System.out.println(Sum(1, 2));
+        System.out.println(Sum(1, 2, 3));   //Overloading the initial Sum function
+
+        //Overriding has been already implemented multiple times across other questions (like toString method)
+    }
+
+    private static int Sum(int num_1, int num_2)   {   return num_1 + num_2;   }
+    private static int Sum(int num_1, int num_2, int num_3)   {   return num_1 + num_2 + num_3;   }
+    //---------------------------------
+
+
+    //  Program to demonstrate class hierarchy for animals that demonstrates polymorphism.  //
+    private static void Question5()
+    {
+        Dog myDog = new Dog("barks", "bones");
+        System.out.println(myDog);
+        
+        Labrador myLab = new Labrador("barks", "pedigree", "golden");
+        System.out.println(myLab);
+    }
+
+
+    //  Program to implement multiple inheritance using interfaces. //
+    private static void Question6()
+    {
+        Box box = new Box(10);
+
+        box.Add(new Book("Fyodor Dostoevsky", "Crime and Punishment", 2)) ;
+        box.Add(new Book("Robert Martin", "Clean Code", 1));
+        box.Add(new Book("Kent Beck", "Test Driven Development", 0.7));
+        
+        box.Add(new CD("Pink Floyd", "Dark Side of the Moon", 1973));
+        box.Add(new CD("Wigwam", "Nuclear Nightclub", 1975));
+        box.Add(new CD("Rendezvous Park", "Closer to Being Here", 2012));
+
+        System.out.println(box);
     }
 }
