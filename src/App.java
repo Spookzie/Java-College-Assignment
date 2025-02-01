@@ -88,4 +88,27 @@ public class App
 
         System.out.println(box);
     }
+
+
+    //  Question 7: Program to showcase the use of this and super keywords. //
+    /*
+    this keyword has been used throughout all my code, in all the classes
+    super keyword has been used in the solution of q2 an q5.
+    */
+
+
+    //  Question 8: Program to demonstrate the concept of constructors. //
+    /*
+    Different classes has been defined for solutions of above questions, each class has its own constructor
+    */
+
+
+    //  Question 9: Program to implement the concept of access modifiers in Java.   //
+    /*
+    private   - the object/method defined as private is usable across that class only in which it is defined.
+    protected - the object/method defined as protected is usable across the package or all subclasses.
+    public    - the object/method defined as public is usable across the entire solution which uses the class it is defined in.
+    
+    private and public access modifiers have been used multiple times throughout all the classes
+    */
 }
