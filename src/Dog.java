@@ -13,7 +13,7 @@ public class Dog extends Animal
 
 
     //Accessor
-    public String GetFood() {   return this.food;   }
+    public final String GetFood() {   return this.food;   }
 
     
     @Override

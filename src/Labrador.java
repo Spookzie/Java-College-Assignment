@@ -10,6 +10,10 @@ public class Labrador extends Dog
     }
     
 
+    // @Override
+    // public String GetFood() {   return "This shouldn't work";   }
+
+
     @Override
     public String toString()
     {
