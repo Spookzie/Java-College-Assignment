@@ -7,7 +7,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question18();
+        Question20();
     }
 
 
@@ -434,4 +434,45 @@ public class App
         
         sc.close();
     }
+
+
+    //  Program to check if a given number is odd or even.    //
+    private static void Question19()
+    {
+        try(Scanner sc = new Scanner(System.in))
+        {
+            System.out.print("Enter a no.: ");
+            int n = Integer.parseInt(sc.nextLine());
+
+            if(n%2 == 0)
+                System.out.println(n + " is even.");
+            else 
+                System.out.println(n + " is odd.");
+        }
+    }
+
+
+    //  Program to find the largest of three numbers entered by the user.   //
+    private static void Question20()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            System.out.println("Enter three nos.: ");
+            
+            int n1 = Integer.parseInt(sc.nextLine());
+            int n2 = Integer.parseInt(sc.nextLine());
+            int n3 = Integer.parseInt(sc.nextLine());
+
+            if(n1>=n2 && n1>=n3)
+                System.out.println(n1 + " is largest");
+            else if(n2>=n1 && n2>=n3)
+                System.out.println(n2 + " is largest");
+            else
+                System.out.println(n3 + " is largest");
+        }
+    }
+
+
+    //  Question 20: Program to calculate the factorial of a given number using recursion.   //
+    // Already done (Question 16)
 }
