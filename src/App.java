@@ -7,7 +7,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question27();
+        Question30();
     }
 
 
@@ -557,6 +557,7 @@ public class App
     //  Program to reverse the elements of an array.    //
     private static void Question26()
     {
+        //Input array
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter size of array: ");
         int size = Integer.parseInt(sc.nextLine());
@@ -570,11 +571,13 @@ public class App
         sc.close();
 
 
+        //Print array
         System.out.print("Array: [ ");
         for(int i=0; i<size; i++)
             System.out.print(nums[i] + " ");
         System.out.print("]");
         
+        //Print reverse array
         System.out.print("\nReverse of array: [ ");
         for(int i=size-1; i>=0; i--)
             System.out.print(nums[i] + " ");    
@@ -671,4 +674,107 @@ public class App
         }
     }
     //---------------------------------
+
+
+    //  Program to sort an array using the bubble sort algorithm.   //
+    private static void Question28()
+    {
+        //Input array
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter size of array: ");
+        int size = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter elements of the array:");
+        int[] nums;
+        nums = new int[size];
+        for(int i=0; i<size; i++)
+            nums[i] = Integer.parseInt(sc.nextLine());
+
+        sc.close();
+
+
+        //Print array
+        System.out.print("Array before sorting: [ ");
+        for(int i=0; i<size; i++)
+            System.out.print(nums[i] + " ");
+        System.out.print("]");
+
+        //Bubble sorting
+        for(int i=0; i<size; i++)
+        {
+            for(int j=i+1; j<size; j++)
+            {
+                if(nums[i] > nums[j])
+                {
+                    int temp = nums[i];
+                    nums[i]  = nums[j];
+                    nums[j]  = temp; 
+                }
+            }
+        }
+
+        //Print array
+        System.out.println();
+        System.out.print("Array after sorting: [ ");
+        for(int i=0; i<size; i++)
+            System.out.print(nums[i] + " ");
+        System.out.print("]");
+    }
+
+
+    //  Question 29: Program to demonstrate a 2D array and print its elements.  //
+    //  2D array has been demonstrated in question 27 as well
+
+
+    //  Program to search for an element in a sorted array using the binary search algorithm.   //
+    //---------------------------------
+    private static void Question30()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            //Input array
+            System.out.print("Enter size of array: ");
+            int size = Integer.parseInt(sc.nextLine());
+            
+            System.out.println("Enter elements of the array:");
+            int[] nums;
+            nums = new int[size];
+            for(int i=0; i<size; i++)
+                nums[i] = Integer.parseInt(sc.nextLine());
+            
+            //Print array
+            System.out.print("Array: [ ");
+            for(int i=0; i<nums.length; i++)
+                System.out.print(nums[i] + " ");
+            System.out.print("]");
+
+            //Binary Search
+            System.out.print("\nEnter the no. whose index you want: ");
+            int x = Integer.parseInt(sc.nextLine());
+
+            int index = BinarySearch(nums, 0, nums.length-1, x);
+            if(index != -1)
+                System.out.println(x + " found at index " + index);
+            else
+                System.out.println(x + " does not exist in the given array");
+        }
+    }
+
+    private static int BinarySearch(int[] arr, int l, int h, int x)
+    {
+        if(l<=h)
+        {
+            int mid = (h-l) / 2;
+            if(x > arr[mid])
+                return BinarySearch(arr, mid+1, h, x);
+            if(x == arr[mid])
+                return mid;
+            else
+                return BinarySearch(arr, l, mid-1, x);
+        }
+
+        return -1;
+    }
+    //---------------------------------
+
 }
