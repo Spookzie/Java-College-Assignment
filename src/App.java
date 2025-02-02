@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class App
 {
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question15();
+        Question18();
     }
 
 
@@ -330,5 +332,106 @@ public class App
             System.out.println(num + " is a prime number.");
         else
             System.out.println(num + " is NOT a prime number.");
+    }
+
+
+    //  Program to calculate the factorial of a number using recursion. //
+    private static void Question16()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            System.out.print("Enter a number: ");
+            int num = sc.nextInt();
+    
+            System.out.println("Factorial of " + num + " is: " + Factorial(num));
+        }
+    }
+
+    private static long Factorial(int n)
+    {
+        if (n == 0 || n == 1)
+            return 1;
+        else
+            return n * Factorial(n - 1);
+    }
+
+
+    //  Program to identify valid and invalid identifiers in Java.  //
+    
+    private static void Question17()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            System.out.print("Enter an identifier: ");
+            String identifier = sc.nextLine();
+            
+            if (IsValidIdentifier(identifier))
+            System.out.println(identifier + " is a valid identifier.");
+            else
+            System.out.println(identifier + " is NOT a valid identifier.");
+        }
+    }
+    
+    private static boolean IsValidIdentifier(String str)
+    {
+        final String regex = "[a-zA-Z_][a-zA-Z0-9_]*";
+
+        final String[] keywords = {
+        "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", 
+            "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if", 
+            "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private", 
+            "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", 
+            "throw", "throws", "transient", "try", "void", "volatile", "while"
+        };
+
+        for (String keyword : keywords)
+        {
+            if (str.equals(keyword))
+                return false;
+        }
+
+        return Pattern.matches(regex, str);
+    }
+
+
+    //  Program to find the largest and smallest numbers in an array.   //
+    private static void Question18()
+    {
+        ArrayList<String> nums = new ArrayList<>();
+        
+        Scanner sc = new Scanner(System.in);
+        
+        //Inputting the first input & setting it as the largest as well as smallest
+        System.out.println("Enter nos. of an array (enter a blank line to stop adding): ");
+        nums.add(sc.nextLine());
+        int i=0;
+        int largest = Integer.parseInt(nums.get(i));
+        int smallest = largest;
+
+        //Inputting the rest of the numbers
+        while(!nums.get(i).equals(""))
+        {
+            i++;
+            nums.add(sc.nextLine());
+        }
+        
+        //Finding the Largest
+        for(int j=1; j<nums.size()-1; j++)
+        {
+            if(Integer.parseInt(nums.get(j)) > largest)
+                largest = Integer.parseInt(nums.get(j));
+        }
+        
+        //Finding the Smallest
+        for(int j=1; j<nums.size()-1; j++)
+        {
+            if(Integer.parseInt(nums.get(j)) < smallest)
+                smallest = Integer.parseInt(nums.get(j));
+        }
+        
+        System.out.println("Largest: " + largest);
+        System.out.println("Smallest: " + smallest);
+        
+        sc.close();
     }
 }
