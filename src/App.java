@@ -7,7 +7,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question23();
+        Question27();
     }
 
 
@@ -336,6 +336,7 @@ public class App
 
 
     //  Program to calculate the factorial of a number using recursion. //
+    //---------------------------------
     private static void Question16()
     {
         try (Scanner sc = new Scanner(System.in))
@@ -354,10 +355,11 @@ public class App
         else
             return n * Factorial(n - 1);
     }
+    //---------------------------------
 
 
-    //  Program to identify valid and invalid identifiers in Java.  //
-    
+    //  Program to identify valid and invalid identifiers in Java.  // 
+    //---------------------------------
     private static void Question17()
     {
         try (Scanner sc = new Scanner(System.in))
@@ -392,6 +394,7 @@ public class App
 
         return Pattern.matches(regex, str);
     }
+    //---------------------------------
 
 
     //  Program to find the largest and smallest numbers in an array.   //
@@ -520,4 +523,152 @@ public class App
 
     //  Question 24: Program to check whether a given number is prime.  //
     //Already done (Question 15)
+
+
+    //  Program to find the sum of all elements in an array.    //
+    private static void Question25()
+    {
+        ArrayList<String> nums = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        
+        //Inputting the first input & setting it as the largest as well as smallest
+        System.out.println("Enter nos. of an array (enter a blank line to stop adding): ");
+        nums.add(sc.nextLine());
+        
+        //Inputting the rest of the numbers
+        int i = 0;
+        while(!nums.get(i).equals(""))
+        {
+            i++;
+            nums.add(sc.nextLine());
+        }
+
+        sc.close();
+
+
+        int sum = 0;
+        for(int j=0; j<nums.size()-1; j++)
+            sum += Integer.parseInt(nums.get(j));
+
+        System.out.println("Sum of all elements = " + sum);
+    }
+
+
+    //  Program to reverse the elements of an array.    //
+    private static void Question26()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter size of array: ");
+        int size = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter elements of the array:");
+        int[] nums;
+        nums = new int[size];
+        for(int i=0; i<size; i++)
+            nums[i] = Integer.parseInt(sc.nextLine());
+
+        sc.close();
+
+
+        System.out.print("Array: [ ");
+        for(int i=0; i<size; i++)
+            System.out.print(nums[i] + " ");
+        System.out.print("]");
+        
+        System.out.print("\nReverse of array: [ ");
+        for(int i=size-1; i>=0; i--)
+            System.out.print(nums[i] + " ");    
+        System.out.print("]");
+    }
+
+
+    //  Program to perform matrix addition and multiplication.   //
+    //---------------------------------
+    private static void Question27()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of rows: ");
+        int rows = Integer.parseInt(sc.nextLine());
+        System.out.print("Enter number of columns: ");
+        int cols = Integer.parseInt(sc.nextLine());
+
+        int[][] mat1 = new int[rows][cols];
+        int[][] mat2 = new int[rows][cols];
+        int[][] sumMat = new int[rows][cols];
+
+        //Matrix input & print
+        System.out.println("Enter elements for Matrix 1:");
+        MatrixInput(sc, mat1, rows, cols);
+        System.out.println("Enter elements for Matrix 2:");
+        MatrixInput(sc, mat2, rows, cols);
+        
+        System.out.println("Matrix 1:");
+        PrintMatrix(mat1, rows, cols);
+        System.out.println("Matrix 2:");
+        PrintMatrix(mat2, rows, cols);
+        
+        //Matrix sum & print
+        AddMatrices(mat1, mat2, sumMat, rows, cols);
+        System.out.println("Sum of Matrices:");
+        PrintMatrix(sumMat, rows, cols);
+
+        //Matrix Multiplication (Possible only if cols of matrix1 == rows of matrix2)
+
+        if (cols == rows)
+        {
+            int[][] resultMat = new int[rows][cols];
+            MultiplyMatrices(mat1, mat2, resultMat, rows, cols);
+    
+            System.out.println("Product of Matrices:");
+            PrintMatrix(resultMat, rows, cols);
+        }
+        else
+            System.out.println("Matrix multiplication is not possible with given dimensions.");
+
+        sc.close();
+    }
+
+    private static void MatrixInput(Scanner scanner, int[][] mat, int rows, int cols)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+                mat[i][j] = scanner.nextInt();
+        }
+    }
+
+    private static void AddMatrices(int[][] mat1, int[][] mat2, int[][] sum, int rows, int cols)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+                sum[i][j] = mat1[i][j] + mat2[i][j];
+        }
+    }
+
+    private static void MultiplyMatrices(int[][] mat1, int[][] mat2, int[][] result, int rows, int cols)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                result[i][j] = 0;
+                for (int k = 0; k < cols; k++)
+                    result[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+
+    private static void PrintMatrix(int[][] mat, int rows, int cols)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+                System.out.print(mat[i][j] + " ");
+
+            System.out.println();
+        }
+    }
+    //---------------------------------
 }
