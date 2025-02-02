@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -7,7 +8,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question30();
+        Question51();
     }
 
 
@@ -730,6 +731,9 @@ public class App
     //---------------------------------
     private static void Question30()
     {
+        int[] nums;
+        int x;
+
         try (Scanner sc = new Scanner(System.in))
         {
             //Input array
@@ -737,37 +741,36 @@ public class App
             int size = Integer.parseInt(sc.nextLine());
             
             System.out.println("Enter elements of the array:");
-            int[] nums;
             nums = new int[size];
             for(int i=0; i<size; i++)
-                nums[i] = Integer.parseInt(sc.nextLine());
+                nums[i] = Integer.parseInt(sc.nextLine());    
             
-            //Print array
-            System.out.print("Array: [ ");
-            for(int i=0; i<nums.length; i++)
-                System.out.print(nums[i] + " ");
-            System.out.print("]");
-
-            //Binary Search
             System.out.print("\nEnter the no. whose index you want: ");
-            int x = Integer.parseInt(sc.nextLine());
-
-            int index = BinarySearch(nums, 0, nums.length-1, x);
-            if(index != -1)
-                System.out.println(x + " found at index " + index);
-            else
-                System.out.println(x + " does not exist in the given array");
+            x = Integer.parseInt(sc.nextLine());
         }
+
+        //Print array
+        System.out.print("Array: [ ");
+        for(int i=0; i<nums.length; i++)
+            System.out.print(nums[i] + " ");
+        System.out.println("]");
+
+        //Binary Search
+        int index = BinarySearch(nums, 0, nums.length-1, x);
+        if(index != -1)
+            System.out.println(x + " found at index " + index);
+        else
+            System.out.println(x + " does not exist in the given array");
     }
 
     private static int BinarySearch(int[] arr, int l, int h, int x)
     {
         if(l<=h)
         {
-            int mid = (h-l) / 2;
+            int mid = l + (h-l) / 2;
             if(x > arr[mid])
                 return BinarySearch(arr, mid+1, h, x);
-            if(x == arr[mid])
+            else if(x == arr[mid])
                 return mid;
             else
                 return BinarySearch(arr, l, mid-1, x);
@@ -777,4 +780,313 @@ public class App
     }
     //---------------------------------
 
+
+    //  Program to remove duplicate elements from an array. //
+    private static void Question31()
+    {
+        int[] nums;
+        
+        try (Scanner sc = new Scanner(System.in))
+        {
+            //Input array
+            System.out.print("Enter size of array: ");
+            int size = Integer.parseInt(sc.nextLine());
+            nums = new int[size];
+            
+            System.out.println("Enter elements of the array:");
+            for(int i=0; i<size; i++)
+                nums[i] = Integer.parseInt(sc.nextLine());
+        }
+
+        //Print array
+        System.out.print("Original array: [ ");
+        for(int i=0; i<nums.length; i++)
+            System.out.print(nums[i] + " ");
+        System.out.print("]");
+
+        //Removing duplicates
+        ArrayList<Integer> newNums = new ArrayList<>();
+        boolean isDuplicate = false;
+        for(int i=0; i<nums.length; i++)
+        {
+            for(int j=i+1; j<nums.length; j++)
+            {
+                if(nums[i] == nums[j])
+                {
+                    isDuplicate = true;
+                    break;
+                }
+                else
+                    isDuplicate = false;
+            }
+            
+            if(!isDuplicate)
+                newNums.add(nums[i]);
+        }
+
+        //Print array
+        System.out.println("New array: " + newNums);
+    }
+
+
+    //  Program to demonstrate the use of arithmetic, relational, and logical operators.    //
+    private static void Question32()
+    {
+        int num1, num2;
+        try (Scanner sc = new Scanner(System.in))
+        {
+           System.out.print("Enter a number: ");
+           num1 = Integer.parseInt(sc.nextLine());
+           System.out.print("Enter another number: ");
+           num2 = Integer.parseInt(sc.nextLine());
+        }
+
+        // Arithmetic Operators
+        System.out.println("\n--- Arithmetic Operators ---");
+        System.out.println(num1 + " + " + num2 + " = " + (num1 + num2)); // add
+        System.out.println(num1 + " - " + num2 + " = " + (num1 - num2)); // subtract
+        System.out.println(num1 + " * " + num2 + " = " + (num1 * num2)); // multiply
+        System.out.println(num1 + " / " + num2 + " = " + (num1 / num2)); // divide
+        System.out.println(num1 + " % " + num2 + " = " + (num1 % num2)); // modulus
+
+        // Relational Operators
+        System.out.println("\n--- Relational Operators ---");
+        System.out.println(num1 + " == " + num2 + " -> " + (num1 == num2)); // equal
+        System.out.println(num1 + " != " + num2 + " -> " + (num1 != num2)); // not equal
+        System.out.println(num1 + " > " + num2 + " -> " + (num1 > num2));   // greater
+        System.out.println(num1 + " < " + num2 + " -> " + (num1 < num2));   // less
+        System.out.println(num1 + " >= " + num2 + " -> " + (num1 >= num2)); // greater or equal
+        System.out.println(num1 + " <= " + num2 + " -> " + (num1 <= num2)); // less or equal
+
+        // Logical Operators
+        System.out.println("\n--- Logical Operators ---");
+        boolean condition1 = (num1 > 0);
+        boolean condition2 = (num2 > 0);
+
+        System.out.println("(" + num1 + " > 0) && (" + num2 + " > 0) -> " + (condition1 && condition2)); // AND
+        System.out.println("(" + num1 + " > 0) || (" + num2 + " > 0) -> " + (condition1 || condition2)); // OR
+        System.out.println("!(" + num1 + " > 0) -> " + (!condition1)); // NOT
+    }
+
+
+    //  Pogram to show the difference between == and equals() for string comparison.   //
+    private static void Question33()
+    {
+        String str1 = "Hello";
+        String str2 = "Hello";
+
+        String str3 = new String("Hello");
+        String str4 = new String("Hello");
+
+        System.out.println("Using == operator:");
+        System.out.println("str1 == str2: " + (str1 == str2));
+        System.out.println("str3 == str4: " + (str3 == str4));
+
+        System.out.println("\nUsing equals() method:");
+        System.out.println("str1.equals(str2): " + str1.equals(str2));
+        System.out.println("str3.equals(str4): " + str3.equals(str4));
+    }
+
+
+    //  Program to illustrate the use of the ternary operator.  //
+    private static void Question34()
+    {
+        int a, b;
+        try (Scanner sc = new Scanner(System.in))
+        {
+            System.out.print("Enter a no.: ");
+            a = Integer.parseInt(sc.nextLine());
+            System.out.print("Enter another no.: ");
+            b = Integer.parseInt(sc.nextLine());
+        }
+
+        boolean isAGreater = (a>b) ? true : false;
+
+        if(isAGreater)
+            System.out.println(a + " is greater than " + b);
+        else
+            System.out.println(a + " is smaller than " + b);
+    }
+
+
+    //  Program to perform bitwise operations in Java.  //
+    private static void Question35()
+    {
+        int num1, num2;
+        try (Scanner scanner = new Scanner(System.in))
+        {
+            System.out.print("Enter a number: ");
+            num1 = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter another number: ");
+            num2 = Integer.parseInt(scanner.nextLine());
+
+        }
+
+        System.out.println("\nBitwise AND (&): " + (num1 & num2));      // AND
+        System.out.println("Bitwise OR (|): " + (num1 | num2));         // OR
+        System.out.println("Bitwise XOR (^): " + (num1 ^ num2));        // XOR
+        System.out.println("Bitwise Complement (~num1): " + (~num1));   // Complement
+        System.out.println("Left Shift (num2 << 1): " + (num2 << 1));   // Left Shift
+        System.out.println("Right Shift (num1 >> 1): " + (num1 >> 1));  // Right Shift 
+        System.out.println("Unsigned Right Shift (num2 >>> 1): " + (num2 >>> 1));   //Unsigned Right Shift
+    }
+
+
+    //  Program to demonstrate operator precedence in Java. //
+    private static void Question36()
+    {
+        int a = 10, b = 5, c = 2;
+        
+        // Without parentheses
+        int result1 = a + b * c;
+        System.out.println("a + b * c = " + result1);
+        System.out.println("Multiplication is done first due to the BODMAS rule");
+        
+        // With parentheses
+        int result2 = (a + b) * c;
+        System.out.println("(a + b) * c = " + result2);
+        System.out.println("Bracket is solved first due to the BODMAS rule");
+    }
+
+
+    //  Program to create a class with multiple constructors (constructor overloading). //
+    private static void Question37()
+    {
+        Person onlyName = new Person("Vansh Bansal");
+        System.out.println(onlyName);
+        
+        Person nameAndAge = new Person("Vansh Bansal", 20);
+        System.out.println(nameAndAge);
+        
+        Person nameAgeAndSalary = new Person("Vansh Bansal", 20, 1200000);
+        System.out.println(nameAgeAndSalary);
+    }
+
+
+    //  Program to demonstrate the use of a copy constructor in Java.   //
+    private static void Question38()
+    {
+        Person normalPerson = new Person("Vansh Bansal", 20, 1200000);
+        System.out.println(normalPerson);
+
+        Person copiedPerson = new Person(normalPerson);
+        System.out.println(copiedPerson);
+    }
+
+
+    //  Questions 39: Program that initializes class fields using a parameterized constructor.  //
+    //  Almost all classes that I have created solve this question
+
+
+    //  Question 40: Program to demonstrate the use of static and non-static methods.    //
+    /*
+    This whole "App.java" file is filled with static methods and even has some variables
+    Most classes that I have created use non-static methods.
+    */
+
+
+    //  Question 41: Program to implement a singleton class in Java.    //
+    //  Singleton Unclear, unable to complete question
+
+
+    //  Question 42: Program to demonstrate multilevel inheritance in Java. //
+    //  Solved in question 5
+
+
+    //  Question 43: Program to show method overriding and the use of super to call the parent class method.    //
+    /*
+    Method Overriding has been implemented multiple times in different classes created for above questions
+    super has been used in Question 5 and in other questions as well
+    */ 
+
+
+    //  Question 44: Program to implement an abstract class and override its methods in a subclass. //  
+    //  An abstract class has been implemented in the file "Player.java" for solution of Question3
+
+
+    //  Question 45: Program to demonstrate final classes and methods.  //
+    // Same as question 10
+
+
+    //  Program to show run-time polymorphism using dynamic method dispatch.    //
+    private static void Question46()
+    {
+        Shape myShape = new Shape();
+        myShape.Draw();
+
+        myShape = new Circle();
+        myShape.Draw();
+
+        myShape = new Rectangle();
+        myShape.Draw();
+    }
+
+
+    //  Program to reverse a string without using built-in methods. //
+    private static void Question47()
+    {
+        String s;
+        try (Scanner sc = new Scanner(System.in))
+        {
+            s = sc.nextLine();    
+        }
+        String sReverse = "";
+        
+        for(int i = s.length()-1; i>=0; i--)
+            sReverse += String.valueOf(s.charAt(i));
+
+        System.out.println(sReverse);
+    }
+
+
+    //  Program to count the frequency of characters in a string.   //
+    private static void Question48()
+    {
+        String s;
+        try (Scanner sc = new Scanner(System.in))
+        {
+            s = sc.nextLine();
+        }
+
+        char[] chars = s.toCharArray();
+        HashMap<Character, Integer> charsCount = new HashMap<>();
+
+        for(int i=0; i<chars.length; i++)
+        {
+            if(!charsCount.containsKey(chars[i]))
+                charsCount.put(chars[i], 1);
+            else
+            {
+                int newValue = charsCount.get(chars[i]) + 1;
+                charsCount.put(chars[i], newValue);
+            }
+        }
+
+
+        System.out.println(charsCount);
+    }
+
+
+    //  Question 49: Program to demonstrate the immutability of the String class.   //
+    // Already done - Question 12
+    
+
+    //  Question 50: Program to check if a given string is a palindrome.    //
+    // Already done - Question 22
+
+
+    //  Program to split a string into words and print each word on a new line. //
+    private static void Question51()
+    {
+        String s;
+        try (Scanner sc = new Scanner(System.in))
+        {
+            s = sc.nextLine();
+        }
+        
+        String[] arr = s.split(" ");
+        
+        for(String word : arr)
+            System.out.println(word);
+    }
 }
