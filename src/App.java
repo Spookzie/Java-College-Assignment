@@ -1,9 +1,11 @@
+import java.util.Scanner;
+
 public class App
 {
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question12();
+        Question15();
     }
 
 
@@ -202,5 +204,131 @@ public class App
             System.out.println("Both refer to the same object.");
         else
             System.out.println("Different objects are created in memory.");
+    }
+
+
+    //  Program to declare variables of all primitive data types in Java and print their default values.    //
+    //---------------------------------
+    private static boolean boolean_var;
+    private static byte    byte_var;
+    private static char    char_var;
+    private static short   short_var;
+    private static int     int_var;
+    private static long    long_var;
+    private static float   float_var;
+    private static double  double_var;
+
+    private static void Question13()
+    {
+        System.out.println("Default values of primitive data types:\n");
+        System.out.println("boolean: " + boolean_var);
+        System.out.println("byte: " + byte_var);
+        System.out.println("char: " + char_var);
+        System.out.println("short: " + short_var);
+        System.out.println("int: " + int_var);
+        System.out.println("long: " + long_var);
+        System.out.println("float: " + float_var);
+        System.out.println("double: " + double_var);
+    }
+    //---------------------------------
+
+
+    //  Program to demonstrate the use of if-else, switch, and for loops.    //
+    private static void Question14()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your marks (0-100): ");
+        int grade = Integer.parseInt(sc.nextLine());
+        sc.close();
+
+        char gradeLetter;
+
+        //If-else
+        if (grade >= 90)
+            gradeLetter = 'A';
+        else if (grade >= 80)
+            gradeLetter = 'B';
+        else if (grade >= 70)
+            gradeLetter = 'C';
+        else if (grade >= 60)
+            gradeLetter = 'D';
+        else
+            gradeLetter = 'F';
+    
+
+        //Switch-case
+        switch (gradeLetter)
+        {
+        case 'A':
+            System.out.println("Excellent! You got an A.");
+            break;
+        case 'B':
+            System.out.println("Great job! You got a B.");
+            break;
+        case 'C':
+            System.out.println("Good effort! You got a C.");
+            break;
+        case 'D':
+            System.out.println("You passed with a D.");
+            break;
+        case 'F':
+            System.out.println("Unfortunately, you failed.");
+            break;
+        default:
+            System.out.println("Invalid grade.");
+        }
+
+
+        //For loop
+        System.out.println("\nDisplaying your grade in:");
+        for (int i = 3; i > 0; i--)
+        {
+            System.out.println(i + "...");
+            try
+            {
+                Thread.sleep(1000); // Pause for 1 second (1000 ms)
+            } catch (InterruptedException ie)
+            {
+                ie.printStackTrace();
+            }
+        }
+
+
+        System.out.println("Your final grade: " + gradeLetter);
+
+    }
+
+
+    //  Program to check if a number is prime using a while loop.   //
+    private static void Question15()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        sc.close();
+
+        boolean isPrime = true;
+
+        if (num < 2)
+            isPrime = false;
+        else
+        {
+            int i = 2;
+            while (i <= Math.sqrt(num))
+            {
+                if (num % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+
+                i++;
+            }
+        }
+
+        if(isPrime)
+            System.out.println(num + " is a prime number.");
+        else
+            System.out.println(num + " is NOT a prime number.");
     }
 }
