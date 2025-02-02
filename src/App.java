@@ -7,7 +7,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         // Replace this with whatever question function you want to run
-        Question20();
+        Question23();
     }
 
 
@@ -473,6 +473,51 @@ public class App
     }
 
 
-    //  Question 20: Program to calculate the factorial of a given number using recursion.   //
+    //  Question 21: Program to calculate the factorial of a given number using recursion.   //
     // Already done (Question 16)
+
+
+    //  Program to check if a given string or number is a palindrome    //
+    private static void Question22()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            String s = sc.next();
+            
+            String sReverse = "";
+            
+            for(int i = s.length()-1; i>=0; i--)
+                sReverse += String.valueOf(s.charAt(i));
+                
+            if(sReverse.equals(s))
+                System.out.println(s + " is a palindrome");
+            else
+                System.out.println(s + " is not a palindrome");
+        }
+    }
+
+
+    //  Program to generate the first n terms of the Fibonacci series.  //
+    private static void Question23()
+    {
+        try (Scanner sc = new Scanner(System.in))
+        {
+            int n = Integer.parseInt(sc.nextLine());
+    
+            int current = 0;
+            int next = 1;
+            while(current <= n)
+            {
+                System.out.print(current + " ");
+    
+                int prev = current;
+                current += next;
+                next = prev;
+            }
+        }
+    }
+
+
+    //  Question 24: Program to check whether a given number is prime.  //
+    //Already done (Question 15)
 }
