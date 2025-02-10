@@ -1,17 +1,27 @@
+import Utilities.MathUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import shapes.Circle;
+import shapes.Rectangle;
+
 
 public class App
 {
+
     public static void main(String[] args) throws Exception
     {
-        // Replace this with whatever question function you want to run
-        Question51();
+        // Replace this with whatever question method you want to run
+        // To run assignment-1 questions, put Question[ques_no.]();
+        // And to run assignment-2 questions, do the same but do ques_no. + 51;
+        Question61();
     }
 
 
+
+    //          ASSIGNMENT - 1              //    
+    
     //  Program to demonstrate encapsulation in Java.   //
     private static void Question1()
     {   
@@ -51,6 +61,7 @@ public class App
         hero.Spawn();
         hero.Kill();
     }
+
 
     //  Program to demonstrate method overloading and method overriding.    //
     //---------------------------------
@@ -349,8 +360,11 @@ public class App
         }
     }
 
-    private static long Factorial(int n)
+    private static long Factorial(int n) throws  IllegalArgumentException
     {
+        if (n < 0)
+            throw new IllegalArgumentException("The number you provided is negative"); 
+
         if (n == 0 || n == 1)
             return 1;
         else
@@ -1011,13 +1025,17 @@ public class App
     //  Program to show run-time polymorphism using dynamic method dispatch.    //
     private static void Question46()
     {
+        /*
+        To run this method, uncomment the 2 lines below and comment the "shapes" package imports
+         */
+
         Shape myShape = new Shape();
         myShape.Draw();
 
-        myShape = new Circle();
+        // myShape = new Circle();
         myShape.Draw();
 
-        myShape = new Rectangle();
+        // myShape = new Rectangle();
         myShape.Draw();
     }
 
@@ -1088,5 +1106,166 @@ public class App
         
         for(String word : arr)
             System.out.println(word);
+    }
+
+
+    
+    //          ASSIGNMENT - 2              //
+    
+
+    //  Create a Java package utilities that contains a class MathUtils with a method add(int a, int b) to return the sum of two numbers. Demonstrate the use of this package in another class. //
+    private static void Question52()
+    {
+        int a,b;
+        try(Scanner sc = new Scanner(System.in))
+        {
+            a = Integer.parseInt(sc.nextLine());
+            b = Integer.parseInt(sc.nextLine());
+        }
+
+        int sum = MathUtils.Add(a,b);
+
+        System.out.println(a + " + " + b + " = " + sum);
+    }
+
+
+    //  Define a package shapes containing an interface Shape with methods double area() and double perimeter(). Implement the interface in classes Circle and Rectangle.   //
+    private static void Question53()
+    {
+        Circle myCircle = new Circle(2);
+        System.out.println("Area of circle: " + myCircle.Area());
+        System.out.println("Perimeter of circle: " + myCircle.Perimeter());
+
+        Rectangle myRect = new Rectangle(2, 2);
+        System.out.println("Area of rectangle: " + myRect.Area());
+        System.out.println("Perimeter of rectangle: " + myRect.Perimeter());
+    }
+
+
+    //  Program to import classes from java.util and use ArrayList to store and display a list of integers. //
+    private static void Question54()
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        list.add(7042);
+        list.add(6969);
+        list.add(420);
+        list.add(69);
+        list.add(0);
+        list.add(747);
+        list.add(22);
+        list.add(9);
+        list.add(32);
+        list.add(5);
+        list.add(88);
+
+        System.out.println(list);
+    }
+
+
+    //  Define a functional interface Calculator with a method int compute(int a, int b). Use a lambda expression to provide implementation for addition, subtraction, and multiplication.  //
+    private static void Question55()
+    {
+        Calculator add = (a, b) -> a+b;
+        Calculator subtract = (a, b) -> a-b;
+        Calculator multiply = (a, b) -> a*b;
+
+        int num1, num2;
+        try(Scanner sc = new Scanner(System.in))
+        {
+            num1 = Integer.parseInt(sc.nextLine());
+            num2 = Integer.parseInt(sc.nextLine());
+        }
+
+        System.out.println(num1 + " + " + num2 + " = " + add.Compute(num1, num2));
+        System.out.println(num1 + " - " + num2 + " = " + subtract.Compute(num1, num2));
+        System.out.println(num1 + " * " + num2 + " = " + multiply.Compute(num1, num2));
+    }
+
+
+    //  Program to sort a list of strings in descending order using a lambda expression.    //
+    private static void Question56()
+    {
+        ArrayList<String> list = new ArrayList<>();
+        
+        list.add("Keshav");
+        list.add("Saksham");
+        list.add("Aditya");
+        list.add("Aryan");
+        list.add("Parth");
+        list.add("Vansh");
+        list.add("Naman");
+        list.add("Kashish");
+
+        System.out.println(list);
+
+        list.sort((s1, s2) -> s2.compareTo(s1));
+
+        System.out.println(list);
+    }
+
+
+    //  Implement a method reference in a program to find the square of a number using a static method. //
+    // private static void Question57()
+    // {
+    //     HashMap<Integer, Integer> squareMap = new HashMap<>();
+    //     squareMap.put(8, App::Square(8));
+    // }
+
+    // private static int Square(int a)    {   return (int)Math.pow(a, 2);  }
+    
+    // Unable to understand
+
+
+    //  Program that demonstrates the difference between try-catch and try-catch-finally blocks by dividing two numbers and handling ArithmeticException.   //
+    private static void Question58()
+    {
+        try{
+            int out = 42 / 0;
+
+        } catch (ArithmeticException e) {
+            System.out.println(e);
+        } finally {
+            System.out.println("Tried Division");
+        }
+    }
+
+
+    //  Create a custom exception InvalidAgeException that is thrown when a user's age is less than 18. Write a program to demonstrate its use. //
+    private static void Question59()
+    {
+        try(Scanner sc = new Scanner(System.in))
+        {
+            int age = Integer.parseInt(sc.nextLine());
+            
+            try{
+                CheckAge(age);
+            } catch (InvalidAgeException e) {
+                System.out.println(e.getMessage());
+                
+                // Uncomment these 2 lines to get answer for question 60
+                // Logger logger = Logger.getLogger("AgeValidator");
+                // logger.log(Level.SEVERE, "Invalid age entered: " + age, e);
+            }
+        }
+    }
+
+    private static void CheckAge(int age) throws InvalidAgeException
+    {
+        if(age < 18)
+            throw new InvalidAgeException("A Minorrrrrr");
+        
+        System.out.println("Safe");
+    }
+
+
+    //  Question 60: 9.	Create a custom exception InvalidAgeException that is thrown when a user's age is less than 18. Handle the exception and log the error to a file using java.util.logging.   //
+    // Covered in Question 59
+
+
+    //  Demonstrate the use of throw and throws keywords in a program that calculates the factorial of a number. Throw an exception if the input number is negative //
+    private static void Question61()
+    {
+        System.out.println(Factorial(-1));
     }
 }

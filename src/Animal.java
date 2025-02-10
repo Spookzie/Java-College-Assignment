@@ -9,5 +9,6 @@ public /*final*/ class Animal
     }
 
 
+    //Accessor
     public String MakeSound()   {   return this.sound;  }
 }
