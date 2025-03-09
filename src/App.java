@@ -1,7 +1,22 @@
 import Utilities.MathUtils;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import shapes.Circle;
 import shapes.Rectangle;
@@ -16,7 +31,7 @@ public class App
         // To run assignment-1 questions, put Question[ques_no.]();
         // To run assignment-2 questions, do the same but do ques_no. + 51;
         // To run assignment-3 questions, do the same but do ques_no. + 61;
-        // Question62();
+        Question86();
     }
 
 
@@ -1273,8 +1288,487 @@ public class App
     
 
     
-    //          ASSIGNMENT - 2              //
+    //          ASSIGNMENT - 3              //
 
 
+    // Implement a thread by extending the Thread class that prints numbers from 1 to 10 with a 1-second delay between each number.
+    private static void Question62()
+    {
+        MyThread t = new MyThread();
+        t.start();
+    }
+
+
+    // Implement a thread by implementing the Runnable interface that prints "Hello, World!" five times, each on a new line.
+    private static void Question63()
+    {
+        RunnableImpl runnable = new RunnableImpl();
+        Thread t = new Thread(runnable);
+        
+        t.start();
+    }
+
+
+    // Create a program that creates two threads. The first thread should print "Thread 1" every 1 second, and the second thread should print "Thread 2" every 2 seconds.
+    private static void Question64()
+    {
+        MyThread2 t1 = new MyThread2(1);
+        MyThread2 t2 = new MyThread2(2);
+
+        t1.setName("Thread 1");
+        t2.setName("Thread 2");
+
+        t1.start();
+        t2.start();
+    }
+
+
+    // Create a Java program that starts three threads with different priorities and prints a message from each thread to show how thread priorities affect execution.
+    private static void Question65()
+    {
+        MyThread3 t1 = new MyThread3("Minimum Priority Thread", Thread.MIN_PRIORITY);
+        MyThread3 t2 = new MyThread3("Normal Priority Thread", Thread.NORM_PRIORITY);
+        MyThread3 t3 = new MyThread3("Maximum Priority Thread", Thread.MAX_PRIORITY);
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        /*Ideally this code should print:
+            Maximum Priority Thread
+            Normal Priority Thread
+            Minimum Priority Thread
+
+        But depending on OS and JVM, the order can be different
+        */
+    }
+
+
+    // Write a Java program to demonstrate how to create a daemon thread. The daemon thread should print "Daemon Thread Running" every 1 second, and the main thread should print "Main Thread Running" every 2 seconds.
+    private static void Question66()
+    {
+        DaemonThread dt = new DaemonThread();
+        dt.setDaemon(true); 
+        dt.start();
+
+        for (int i=0; i<5; i++)
+        {
+            System.out.println("Main Thread Running");
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+
+    // Create a Java program where two threads try to update the same bank account balance. Use synchronization to ensure the balance is updated correctly and avoid race conditions.
+    private static void Question67()
+    {
+        BankAccount acc = new BankAccount(1000);
+
+        DepositThread t1 = new DepositThread(acc, 500, "Thread 1");
+        DepositThread t2 = new DepositThread(acc, 700, "Thread 2");
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println(acc);
+    }
+
+
+    // Modify the above program (bank account example) to use a synchronized block instead of a synchronized method.
+    private static void Question68()
+    {
+        BankAccount acc = new BankAccount(1000);
+
+        DepositThread t1 = new DepositThread(acc, 500, "Thread 1");
+        DepositThread t2 = new DepositThread(acc, 700, "Thread 2");
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println(acc);
+    }
+
+
+    // Write a program that simulates a deadlock condition. Create two threads that attempt to lock two different resources and cause a deadlock.
+    private static void Question69()
+    {
+        Resource A = new Resource("Resource A");
+        Resource B = new Resource("Resource B");
+
+        Thread t1 = new Thread(new Task(A, B), "Thread 1");
+        Thread t2 = new Thread(new Task(B, A), "Thread 2"); // Reversed order
+
+        t1.start();
+        t2.start();
+    }
+
+
+    // Implement a producer-consumer scenario where one thread (producer) produces data and another thread (consumer) consumes it. Use the wait() and notify() methods for synchronization.
+    private static void Question70()
+    {
+        SharedBuffer buffer = new SharedBuffer();
+        Producer prod = new Producer(buffer);
+        Consumer cons = new Consumer(buffer);
+
+        System.out.println("Press 'ctrl + c' to stop running");
+        prod.start();
+        cons.start();
+    }
+
+
+    // Write a program that safely stops a thread using a flag. The thread should print numbers from 1 to 100, and the program should be able to stop the thread by setting the flag to false.
+    private static void Question71()
+    {
+        NumberPrinter np = new NumberPrinter();
+        np.start();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {}
+
+        np.stopThread();
+    }
+
+
+    // Write a program that reads a text file using the FileInputStream and prints the contents to the console.
+    private static void Question72()
+    {
+        String filePath = "..//res//sample.txt";
+
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            
+            int data;
+            while ((data = fis.read()) != -1)
+            {
+                System.out.print((char) data);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+
+    // Create a program that writes a string into a file using the FileOutputStream. Ensure that the program writes the string "Java I/O Streams Example" to a file named output.txt.
+    private static void Question73()
+    {
+        //  Before running this code, delete output.txt //
+
+        String data = "Java I/O Streams Example";
+        String destFilePath = "..//res//output.txt";
+
+        try (FileOutputStream fos = new FileOutputStream(destFilePath)) {
+
+            fos.write(data.getBytes());
+            System.out.println("Data successfully written in " + destFilePath);
+
+        } catch (IOException e) {
+            System.out.println("Error writing in file: " + e.getMessage());
+        }
+    }    
+
+
+    // Write a program that reads a file using the FileReader class and prints the contents of the file to the console.
+    private static void Question74()
+    {
+        String filePath = "..//res//sample.txt";
+
+        try (FileReader fr = new FileReader(filePath)) {
+
+            int character;
+            while ((character = fr.read()) != -1)
+                System.out.print((char) character);
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+
+    // Write a program that writes a string to a file using the FileWriter class. The string should be written to a file named example.txt.
+    private static void Question75()
+    {
+        //  Before running this code, delete output.txt //
+
+        String filePath = "..//res//output.txt";
+        String content = "Java I/O Streams Example using FileWriter.";
+
+        try (FileWriter fw = new FileWriter(filePath)) {
+
+            fw.write(content); // Writing to file
+            System.out.println("Successfully written to file!");
+
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+
+    // Modify the previous FileReader and FileWriter examples to use BufferedReader and BufferedWriter respectively to read from and write to the file, improving performance.
+    private static void Question76()
+    {
+        //  Before running this code, delete output.txt //
+
+        // Reading
+        String inFilePath = "..//res//sample.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(inFilePath))) {
+
+            String line;
+            while ((line = br.readLine()) != null)
+                System.out.println(line);
     
+        } catch (IOException e) {
+            System.out.println("Error reading the file: " + e.getMessage());
+        }
+
+        // Writing
+        String outFilePath = "..//res//output.txt";
+        String content = "Java I/O Streams Example using BufferedWriter.";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outFilePath))) {
+
+            bw.write(content);
+            System.out.println("File written successfully using BufferedWriter.");
+
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+
+    // Write a program that checks if a file exists in the system. If the file does not exist, create the file using the File class.
+    private static void Question77()
+    {
+        //  Run this code once with "exists.txt" present in res folder and once after deleting it   //
+
+        String filePath = "..//res//exists.txt";
+
+        File file = new File(filePath);
+
+        if (file.exists())
+            System.out.println("File already exists :(");
+        else
+        {
+            try {
+
+                if (file.createNewFile())
+                    System.out.println("File created successfully: ");
+                else
+                    System.out.println("File creation failed.");
+                
+            } catch (IOException e) {
+                System.out.println("An error occurred: " + e.getMessage());
+            }
+        }
+    }
+
+
+    // Write a Java program that lists all files in a directory specified by the user. The program should handle exceptions appropriately.
+    private static void Question78()
+    {
+        String dirPath = "..//res";
+        
+        File directory = new File(dirPath);
+
+        if (directory.exists() && directory.isDirectory())
+        {
+            File[] files = directory.listFiles();
+
+            if (files != null && files.length > 0)
+            {
+                System.out.println("Files in directory: " + dirPath);
+
+                for (File file : files)
+                    System.out.println(file.getName());
+            }
+            else
+                System.out.println("The directory is empty.");
+        }
+        else
+            System.out.println("Invalid directory path or the directory does not exist.");
+    }
+
+
+    // Create a program that copies the contents of one file to another using byte streams (FileInputStream and FileOutputStream).
+    private static void Question79()
+    {
+        //  Make sure that "sameple-copy.txt" is empty before running this code //
+
+        String sourceFile = "..//res//sample.txt";
+        String destinationFile = "..//res//sample-copy.txt";
+
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             FileOutputStream fos = new FileOutputStream(destinationFile))
+        {
+            int byteData;
+            while ((byteData = fis.read()) != -1)
+                fos.write(byteData);
+
+            System.out.println("File copied successfully!");
+
+        } catch (IOException e) {
+            System.out.println("Error during file copy: " + e.getMessage());
+        }
+    }
+
+    // Write a Java program that deletes a file from the system using the File class.
+    private static void Question80()
+    {
+        //  Check if there is a "delete-this.text" file present in res folder, if not make sure to create it before running this code   //
+
+        String fileName = "..//res//delete-this.txt";
+
+        File file = new File(fileName);
+
+        if (file.exists())
+        {
+            if (file.delete())
+                System.out.println("File deleted successfully!");    
+            else
+                System.out.println("Failed to delete the file.");
+        }
+        else
+            System.out.println("File does not exist.");
+    }
+
+
+    // Create a program that uses the RandomAccessFile class to read and write to specific positions within a file. The program should write some data at the beginning of the file, then overwrite part of it later.
+    private static void Question81()
+    {
+        String fileName = "..//res//random-access.txt";
+
+        try (RandomAccessFile raf = new RandomAccessFile(fileName, "rw")) {
+
+            raf.writeBytes("Hello, this is a test file!");
+
+            raf.seek(7);
+            raf.writeBytes("UPDATED");
+
+            raf.seek(0);
+            String content = raf.readLine();
+
+            System.out.println("Updated File Content: " + content);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+
+    // Write a program that demonstrates the use of Math.random(), Math.abs(), and Math.pow() from the java.lang package
+    private static void Question82()
+    {
+        System.out.println("Random value (0 to 1): "  + Math.random());
+        System.out.println("Absolute value of -10: "  + Math.abs(-10));
+        System.out.println("2 raised to power of 3: " + Math.pow(2,3));
+    }
+
+
+    // Create a program that uses the ArrayList class from the java.util package. Add 10 integers to the list, sort the list, and print the sorted list.
+    private static void Question83()
+    {
+        List<Integer> nums = new ArrayList<>();
+
+        for(int i=0; i<10; i++)
+        {
+            double newNum = Math.random() * 100;
+            nums.add((int)newNum);
+        }
+
+        System.out.println("Original List: " + nums);
+        Collections.sort(nums);
+        System.out.println("Sorted List: " + nums);
+    }
+
+
+    // Write a program that uses HashMap from the java.util package to store key-value pairs. The keys should be employee IDs, and the values should be employee names.
+    private static void Question84()
+    {
+        Map<Integer, String> empMap = new HashMap<>();
+
+        empMap.put(1, "Vansh");
+        empMap.put(2, "Naman");
+        empMap.put(3, "Keshav");
+        empMap.put(4, "Saksham");
+        empMap.put(5, "Aryan");
+        empMap.put(6, "Aditya");
+        empMap.put(7, "Kashish");
+        empMap.put(8, "Parth");
+        empMap.put(9, "Sanskar");
+
+        double pickOne = Math.random() * 10;
+        System.out.println("Employee ID: " + (int)pickOne);
+        System.out.println("Employee Name: " + empMap.get((int)pickOne));
+    }
+
+
+    // Write a program that uses the Date and Calendar classes to display the current date and time.
+    private static void Question85()
+    {   
+        // Date Class
+        Date currentDate = new Date();
+        System.out.println("Current Date and Time (Date class): " + currentDate);
+
+        // Calendar class
+        Calendar calendar = Calendar.getInstance();
+        System.out.println("Current Date and Time (Calendar class): " + calendar.getTime());
+        
+        int year  = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day   = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour  = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+
+        System.out.println("Formatted Date: " + day + "/" + month + "/" + year);
+        System.out.println("Formatted Time: " + hour + ":" + minute + ":" + second);
+    }
+
+
+    // Create a program that uses the Pattern and Matcher classes from the java.util.regex package to check if a given string is a valid email address.
+    //------------------------------------
+    private static void Question86()
+    {
+        String[] emails = {
+            "test@example.com",
+            "user123@gmail.com",
+            "hello.world@domain.co",
+            "invalid_email@com",
+            "wrong@.com",
+            "no_at_symbol.com"
+        };
+
+        for (String email : emails)
+            System.out.println(email + " is " + (isValidEmail(email) ? "Valid" : "Invalid"));
+    }
+
+    private static boolean isValidEmail(String email)
+    {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        
+        return matcher.matches();
+    }
+    //------------------------------------
 }
