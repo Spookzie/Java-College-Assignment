@@ -2,6 +2,8 @@ public class Labrador extends Dog
 {
     private final String furColor;
 
+
+    // Constructor
     public Labrador(String sound, String food, String fur_color)
     {
         super(sound, food);

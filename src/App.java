@@ -14,8 +14,9 @@ public class App
     {
         // Replace this with whatever question method you want to run
         // To run assignment-1 questions, put Question[ques_no.]();
-        // And to run assignment-2 questions, do the same but do ques_no. + 51;
-        Question61();
+        // To run assignment-2 questions, do the same but do ques_no. + 51;
+        // To run assignment-3 questions, do the same but do ques_no. + 61;
+        // Question62();
     }
 
 
@@ -47,6 +48,7 @@ public class App
         System.out.println(me);
 
         System.out.println("\n-------------------\n");
+
         Teacher sir = new Teacher("John Doe", 39, "Mathematics");
         System.out.println("Teacher name: " + sir.GetName());
         System.out.println("Teacher age: " + sir.GetAge());
@@ -1268,4 +1270,11 @@ public class App
     {
         System.out.println(Factorial(-1));
     }
+    
+
+    
+    //          ASSIGNMENT - 2              //
+
+
+    
 }

@@ -2,7 +2,7 @@ public class Dog extends Animal
 {
     private final String food;
 
-
+    
     //Constructor
     public Dog(String sound, String food)
     {
