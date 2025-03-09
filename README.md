@@ -9,4 +9,8 @@ All 51 questions have been completed except for the repeated questions
 
 ***For Assignment 2 questions***
 These questions have been added with numbering in continuation, so for example, Question 1 is done in method Question52()
-So to each question has been implemented in separate methods labeled as "Question[51+ques_no.]"
+So each question has been implemented in separate methods labeled as "Question[51+ques_no.]"
+
+***For Assignment 3 questions***
+These questions have also been added with numbering in continuation
+To run these questions, do "Question[61+ques_no.]"
