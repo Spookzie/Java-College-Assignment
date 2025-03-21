@@ -31,7 +31,8 @@ public class App
         // To run assignment-1 questions, put Question[ques_no.]();
         // To run assignment-2 questions, do the same but do ques_no. + 51;
         // To run assignment-3 questions, do the same but do ques_no. + 61;
-        Question86();
+        // To run assignment-4 questions, do the same but do ques_no. + 86;
+        Question93();
     }
 
 
@@ -1771,4 +1772,111 @@ public class App
         return matcher.matches();
     }
     //------------------------------------
+
+
+    
+    //          ASSIGNMENT - 4              //
+    
+
+    // Question87 - What is the purpose of generics in Java, and how do they improve type safety and code reusability?
+    /*
+    Generics allow defining classes, interfaces, and methods with type parameters. This enables type safety by ensuring compile-time type checks and reducing runtime errors.
+    This improves the code reusability by allowing the same code to work with different data types.
+    */
+
+
+    // Explain the syntax for creating a user-defined generic class in Java. Provide an example.
+    private static void Question88()
+    {
+        Generic<Integer> g = new Generic<>(10);
+        System.out.println(g.Get());
+        g.Set(15);
+        System.out.println(g.Get());
+        g.Type();
+        
+        Generic<String> g2 = new Generic<>("Hello!");
+        System.out.println(g2.Get());
+        g2.Set("Changed");
+        System.out.println(g2.Get());
+        g2.Type();
+    }
+
+
+    // How do bounded type parameters work in generics? Write a generic class that accepts only subclasses of Number.
+    // ---> Bounded type parameters allow us to restrict the types that can be used as arguments in a generic class, method, or interface.
+    private static void Question89()
+    {
+        NumericBox<Integer> intBox = new NumericBox<>(10);
+        System.out.println(intBox.Get());
+
+        NumericBox<Double> doubleBox = new NumericBox<>(5.5);
+        System.out.println(doubleBox.Get());
+
+        // NumericBox<String> strBox = new NumericBox<>("Hello");  // Not allowed
+        // Uncomment the above line to see that it will cause an error
+    }
+
+
+    // What is the difference between ? extends T and ? super T in generics? Provide an example of when to use each
+    // ----> ? extends T accepts any subclass of T
+    // ----> ? super T accepts any superclass of T
+    private static void Question90()
+    {
+        ExtendsEg eeg = new ExtendsEg();
+        List<Integer> intList = List.of(1, 2, 3);
+        List<Double> doubleList = List.of(1.1, 2.2, 3.3);
+
+        eeg.PrintNums(intList);
+        System.out.println();
+        eeg.PrintNums(doubleList); 
+        System.out.println();
+
+        SuperEg seg = new SuperEg();
+        List<Integer> intList2 = new ArrayList<>();
+        List<Number> numList = new ArrayList<>();
+        List<Object> objList = new ArrayList<>();
+
+        seg.AddNums(intList2);
+        seg.AddNums(numList);
+        seg.AddNums(objList);
+
+        System.out.println(intList2); 
+        System.out.println(numList); 
+        System.out.println(objList); 
+    }
+
+
+    // Question91 - How do raw types differ from parameterized types in generics, and why should raw types be avoided?
+    /*
+    A raw type is when you use a generic class without specifying a type parameter.
+    No type safety when using raw types, potential runtime errors, reduced code readability.
+    */
+
+
+    // Write a generic class Pair<K, V> that holds two values of any types, K and V. Include methods to get and set the values.
+    private static void Question92()
+    {
+        Pair<String, Integer> a = new Pair<>("Vansh", 100);
+
+        System.out.println(a.GetKey() + " : " + a.GetValue());
+        
+        a.SetKey("Johnny");
+        a.SetValue(10);
+        
+        System.out.println(a.GetKey() + " : " + a.GetValue());
+    }
+
+
+    // Create a user-defined generic class Box<T> with methods addItem(T item) and getItem(). Demonstrate its usage with String and Integer types
+    //  --- To prevent clash with previous code, "Box1" class has been created instead of "Box"
+    private static void Question93()
+    {
+        Box1<String> strBox = new Box1<>();
+        strBox.addItem("Hello World!");
+        System.out.println(strBox.getItem());
+        
+        Box1<Integer> intBox = new Box1<>();
+        intBox.addItem(10);
+        System.out.println(intBox.getItem());
+    }
 }
